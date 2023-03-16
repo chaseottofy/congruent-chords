@@ -16,8 +16,11 @@ handleNotes.setDefaults(
   notes.chromatic,
   keyboard.all
 );
+// console.log(controls.getPlaybackMode())
+// console.log(controls.getPlaybackMode())
+// console.log(handleNotes.getKeyboardMap());
+const setDom = () => {
+  circle.appendNotes(handleNotes.getNotesArray())
+}
 
-console.log(controls.getPlaybackMode())
-controls.setPlaybackMode('note')
-console.log(controls.getPlaybackMode())
-console.log(handleNotes.getKeyboardMap());
+setDom();
