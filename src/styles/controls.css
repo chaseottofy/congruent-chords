@@ -1,0 +1,168 @@
+.sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 16rem;
+  padding: 1rem .5rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  z-index: 999;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.title {
+  padding: .125rem 0;
+}
+
+.logo {
+  height: 3rem;
+  width: 100%;
+  padding: 0 .5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo svg {
+  width: 100%;
+  height: 100%;
+}
+
+.settings {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+  justify-content: flex-start;
+}
+
+.sample,
+.volume,
+.effects,
+.playback-mode,
+.arpeggiate,
+.set-octaves,
+.envelope {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: .5rem;
+  border-radius: 4px;
+  border: 1px solid var(--black2);
+  row-gap: .25rem;
+}
+
+.sample div,
+.effects div,
+.playback-mode div,
+.set-octaves div,
+.envelope div,
+.arpeggiate div {
+  height: 1.5rem;
+  padding: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.sample {
+  padding: 0;
+  border: none;
+}
+
+.sample label {
+  border: 1px solid var(--grey1);
+  padding: 4px;
+  width: 100%;
+  cursor: pointer;
+  font-size: .875rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 4px;
+}
+
+.sample label:hover {
+  background: var(--black0);
+}
+
+.volume input {
+  width: 100%;
+}
+
+.sample-select,
+.chord-select,
+.arp-select,
+.set-octave {
+  padding: 4px;
+  width: 100%;
+  margin-top: .125rem;
+}
+
+.hide-chord {
+  opacity: 0;
+  user-select: none;
+  pointer-events: none;
+}
+
+.pass {
+  margin-top: .5rem;
+}
+
+.pass input {
+  width: 85%;
+}
+
+/*
+OCTAVES
+==================*/
+.lower-octave__val,
+.upper-octave__val {
+  line-height: 1.75rem;
+  text-align: center;
+  height: 1.75rem;
+  border-radius: 4px;
+  width: 2rem;
+  pointer-events: none;
+  user-select: none;
+}
+
+.change-octave__btn {
+  display: flex;
+  width: 4rem;
+}
+
+.set-octave button {
+  padding: 0;
+  width: 25%;
+  height: 1.75rem;
+}
+
+.upper-octave__add,
+.upper-octave__subtract {
+  border-radius: 0 0 4px 4px;
+}
+
+.lower-octave__subtract,
+.lower-octave__add {
+  border-radius: 4px 4px 0 0;
+}
+
+.set-octave button svg {
+  width: 100%;
+  height: 100%;
+  fill: var(--white1);
+}
+
+.set-octave button:hover {
+  background: var(--white1);
+}
+
+.set-octave button:hover svg {
+  fill: var(--black1);
+}

@@ -1,0 +1,58 @@
+{
+  "name": "congruent-chords",
+  "version": "1.0.0",
+  "description": "visual-chord-theory",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "dev": "webpack serve --open",
+    "deploy": "gh-pages -d dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chaseottofy/congruent-chords.git"
+  },
+  "keywords": [
+    "music",
+    "chords",
+    "theory",
+    "visual",
+    "audio",
+    "vanilla",
+    "javascript",
+    "html",
+    "css",
+    "music-theory",
+    "chord-theory",
+    "chord-progressions",
+    "chord-progressions-theory",
+    "vanilla-js"
+  ],
+  "author": "Chase Ottofy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chaseottofy/congruent-chords/issues"
+  },
+  "homepage": "https://github.com/chaseottofy/congruent-chords#readme",
+  "devDependencies": {
+    "webpack": "^5.76.2",
+    "webpack-cli": "^5.0.1"
+  },
+  "dependencies": {
+    "compression-webpack-plugin": "^10.0.0",
+    "css-loader": "^6.7.3",
+    "css-minimizer-webpack-plugin": "^4.2.2",
+    "favicons-webpack-plugin": "^6.0.0",
+    "html-minimizer-webpack-plugin": "^4.3.0",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.7.3",
+    "source-map-loader": "^4.0.1",
+    "style-loader": "^3.3.2",
+    "terser-webpack-plugin": "^5.3.7",
+    "tone": "^14.7.77",
+    "webpack-dev-server": "^4.12.0",
+    "webpack-manifest-plugin": "^5.0.0",
+    "webpack-nano": "^1.1.1"
+  }
+}

@@ -1,0 +1,28 @@
+.body {
+  background: var(--black1);
+  color: var(--white1);
+  font-family: var(--primaryFont);
+  font-size: 1rem;
+  overflow: hidden;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.main {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: calc(100% - 16rem);
+  margin-left: auto;
+  font-size: 1rem;
+}
+
+@media screen and (max-width: 600px) {
+  .main {
+    transform: scale(0.8);
+  }
+}

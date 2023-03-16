@@ -1,0 +1,21 @@
+.icon-tray {
+  position: absolute;
+  z-index: 1000;
+  top: 0;
+  right: 0;
+  width: 6rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .5rem 1rem 0 0;
+
+}
+
+.icon-tray a {
+  cursor: pointer;
+  font-size: 1.25rem;
+}
+
+.icon-tray a svg {
+  fill: var(--white1);
+}

@@ -1,0 +1,11 @@
+{
+  "name": "CongruentChords",
+  "short_name": "CC",
+  "description": "Learn Chords",
+  "dir": "auto",
+  "lang": "en-US",
+  "display": "standalone",
+  "orientation": null,
+  "background_color": "#111314",
+  "theme_color": "#111314"
+}
