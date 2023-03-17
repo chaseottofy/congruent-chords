@@ -39,6 +39,7 @@
   top: 0;
   left: 0;
   height: 2px;
+  background: var(--blue1);
 }
 
 .note-content {
@@ -67,19 +68,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  content: attr(data-note-name);
+  content: attr(data-note-child-name);
   font-size: 1rem;
   line-height: 2.5rem;
   width: 100%;
   z-index: 999;
 }
-
-.note-wrapper.active > .note-content::after {
-  background: var(--white1);
-}
-
-/* @media screen and (max-width: 600px) {
-  .main {
-    width: calc(100% - 14rem);
-  }
-} */

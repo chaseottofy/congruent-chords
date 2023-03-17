@@ -9,7 +9,6 @@ import circle from "./components/circle";
 import Sampler from "./audio/sampler";
 import handleNotes from "./audio/handleNotes";
 
-
 handleNotes.setDefaults(controls.getOctaves(), notes.chromatic, keyboard.all);
 circle.appendNotes(handleNotes.getNotesArray());
 const sampler = new Sampler(controls.getDefaults());
@@ -20,25 +19,31 @@ const initListeners = () => {
 
   document.addEventListener("keydown", (e) => {
     const mode = controls.getPlaybackMode();
-    handleNotes.handleKeydown(
-      e.key,
-      mode,
-      controls.getChord(),
-      mode === "chord"
-        ? (arg) => sampler.chordon(arg)
-        : (arg) => sampler.noteon(arg)
-    );
+    const chord = controls.getChord();
+    const callback = (arg) => {
+      if (mode === "chord") {
+        sampler.chordon(arg);
+        circle.setActiveChordStyle(arg);
+      } else {
+        sampler.noteon(arg);
+        circle.setActiveNoteStyle(arg);
+      }
+    };
+    handleNotes.handleKeydown(e.key, mode, chord, callback);
   });
 
   document.addEventListener("keyup", (e) => {
     const mode = controls.getPlaybackMode();
-    handleNotes.handleKeyup(
-      e.key,
-      mode,
-      mode === "chord"
-        ? () => sampler.chordoff()
-        : (arg) => sampler.noteoff(arg)
-    );
+    const callback = (arg) => {
+      if (mode === "chord") {
+        sampler.chordoff();
+        circle.removeActiveChordStyle();
+      } else {
+        sampler.noteoff(arg);
+        circle.removeActiveNoteStyle(arg);
+      }
+    };
+    handleNotes.handleKeyup(e.key, mode, callback);
   });
 };
 

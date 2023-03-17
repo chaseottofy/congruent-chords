@@ -1,7 +1,9 @@
+const $$ = document.querySelectorAll.bind(document);
+const $ = document.querySelector.bind(document);
 class Circle {
   constructor () {
-    this.notesContainer = document.querySelector(".circle__outer");
-    this.activeNotesContainer = document.querySelector(".circle__inner");
+    this.notesContainer = $(".circle__outer");
+    this.activeNotesContainer = $(".circle__inner");
     this.notes = [];
     this.activeNotes = [];
   }
@@ -10,12 +12,12 @@ class Circle {
     const noteWrapper = document.createElement("div");
     noteWrapper.classList.add("note-wrapper");
     noteWrapper.style.transform = `rotate(${degree}deg)`;
-
     const content = document.createElement("div");
     content.classList.add("note-content");
-    content.setAttribute("data-note-name", note);
+    content.setAttribute("data-note-child-name", note);
     content.style.transform = `rotate(${360 - degree}deg)`;
 
+    noteWrapper.setAttribute("data-note-parent-name", note);
     noteWrapper.append(content);
     return noteWrapper;
   }
@@ -37,7 +39,7 @@ class Circle {
   }
 
   #getActiveNote(note) {
-    return document.querySelector(`[data-note-name="${note}"]`);
+    return $(`[data-note-parent-name="${note}"]`)
   }
 
   setActiveNoteStyle(note) {
@@ -49,7 +51,13 @@ class Circle {
   }
 
   setActiveChordStyle(notes) {
-    notes.forEach(note => this.setActiveNoteStyle(note));
+    notes.forEach(note => {
+      this.setActiveNoteStyle(note)
+    });
+  }
+
+  removeActiveChordStyle() {
+    $$(`[data-note-parent-name]`).forEach(note => note.classList.remove("active"));
   }
 }
 

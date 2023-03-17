@@ -82,7 +82,6 @@ class HandleNotes {
     const map = this.getKeyboardMap();
     const mappedNote = map[key];
     if (!mappedNote) return;
-
     if (mode === "chord") {
       off();
       this.removeAll();
