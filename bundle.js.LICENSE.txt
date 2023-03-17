@@ -2086,8 +2086,6 @@
 
 /*! ./samples/piano1.mp3 */
 
-/*! ./samples/piano2.mp3 */
-
 /*! ./sanitize-audio-worklet-node-options-function */
 
 /*! ./sanitize-channel-splitter-options-function */
@@ -2342,10 +2340,6 @@
 
 /*!**************************************!*\
   !*** ./src/audio/samples/piano1.mp3 ***!
-  \**************************************/
-
-/*!**************************************!*\
-  !*** ./src/audio/samples/piano2.mp3 ***!
   \**************************************/
 
 /*!**************************************!*\
