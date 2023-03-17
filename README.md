@@ -5,4 +5,25 @@
 ![screen](src/assets/screenshots/wheelv1.png)
 
 ### Desription
-Visualize the congruence of the circle of fifths with the circle of fourths. Play either chords or single notes with a single keypress/mouseclick. Includes full octave range support (1-8), 8 custom crafted samples, 5 arpeggiation types, 5 chord types, ASDR envelope, volume control, lowpass/highpass, and rever/delay effects.
+
+Mainly a hobby project.
+
+Play either chords or single notes with a single keypress/mouseclick. Includes full octave range support (1-8), 8 custom crafted samples, 5 arpeggiation types, 5 chord types, Attack/Release, volume control, lowpass/highpass, and reverb/delay effects.
+
+### Current Status
+
+- [x] Cycle through samples
+- [x] Note & chord mode
+- [x] Cycle through different chords
+- [x] Resonsive
+- [x] Hide controls
+- [x] Display current note(s) & angles
+- [x] Play notes with keyboard
+- [x] 1-8 Octaves
+- [x] Volume control
+- [x] Attack/Release
+- [ ] Click note to play
+- [ ] Reverb
+- [ ] Delay
+- [ ] Lowpass/highpass
+- [ ] Arp Mode
