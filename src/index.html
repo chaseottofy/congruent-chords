@@ -34,19 +34,19 @@
     <!-- volume slider -->
     <div class="controls__section volume">
       <span class="controls__section--title">volume</span>
-      <input type="range" min="30" max="60" step="1" value="45" class="volume-slider">
+      <input type="range" min="30" max="60" step="1" value="48" class="volume-slider">
     </div>
 
     <!-- select sample -->
     <div class="controls__section sample">
       <select name="sample-select" class="sample-select controls--select">
-        <option value="pad1">pad 1</option>
-        <option value="pad2" selected>pad 2</option>
-        <option value="pad3">pad 3</option>
-        <option value="key1">key 1</option>
-        <option value="key2">key 2</option>
-        <option value="piano1">piano 1</option>
         <option value="distortedorgan1">distorted organ</option>
+        <option value="key1" selected>key 1</option>
+        <option value="key2">key 2</option>
+        <option value="pad1">pad 1</option>
+        <option value="pad2">pad 2</option>
+        <option value="pad3">pad 3</option>
+        <option value="piano1">piano 1</option>
       </select>
     </div>
 
@@ -128,11 +128,11 @@
 
       <div class="controls__section--row controls--slider">
         <label for="lowpass">LP</label>
-        <input type="range" value="0" step="0.10" min="0" max="1" class="lowpass-slider">
+        <input type="range" value="0" step="2" min="0" max="80" class="lowpass-slider">
       </div>
       <div class="controls__section--row controls--slider">
         <label for="highpass">HP</label>
-        <input type="range" value="0" step="0.10" min="0" max="1" class="highpass-slider">
+        <input type="range" value="0" step="2" min="0" max="80" class="highpass-slider">
       </div>
     </div>
 
@@ -142,11 +142,11 @@
       <span class="controls__section--title">envelope</span>
       <div class="controls__section--row controls--slider">
         <label for="attack">A</label>
-        <input type="range" value="0.9" step="0.1" min="0" max="1" class="attack-slider">
+        <input type="range" value="0.1" step="0.1" min="0" max="1" class="attack-slider">
       </div>
       <div class="controls__section--row controls--slider">
         <label for="release">R</label>
-        <input type="range" value="0.9" step="0.1" min="0" max="1" class="release-slider">
+        <input type="range" value="0.2" step="0.1" min="0" max="1" class="release-slider">
       </div>
     </div>
   </aside>

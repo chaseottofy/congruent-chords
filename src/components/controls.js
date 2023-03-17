@@ -27,24 +27,24 @@ class Controls {
   setCallback(name, callback) { this.callbacks[name] = callback; }
   getCallback(name) { return this.callbacks[name] || null; }
 
-  getSample() { 
-    return this.sample.value; 
+  getSample() {
+    return this.sample.value;
   }
 
-  getChord() { 
-    return this.chord.value; 
+  getChord() {
+    return this.chord.value;
   }
 
-  getArp() { 
-    return this.arp.value; 
+  getArp() {
+    return this.arp.value;
   }
 
-  getSliderValue(slider) { 
-    return this[slider].value; 
+  getSliderValue(slider) {
+    return this[slider].value;
   }
 
-  getCheckboxValue(checkbox) { 
-    return this[checkbox].checked; 
+  getCheckboxValue(checkbox) {
+    return this[checkbox].checked;
   }
 
   getPlaybackMode() {
@@ -61,7 +61,7 @@ class Controls {
       volume: this.volume.value,
       attack: this.attack.value,
       release: this.release.value,
-    }
+    };
   }
 
   getFilterArgs() {
@@ -70,19 +70,29 @@ class Controls {
       highpass: this.highpass.value,
       reverb: this.reverb.checked,
       delay: this.delay.checked,
-    }
+    };
   }
 
   setSample() {
     const callback = this.getCallback("loadSample");
     const args = this.getSampleArgs();
-    callback(args.sample, args.volume, args.attack, args.release);
+    callback(
+      args.sample,
+      args.volume,
+      args.attack,
+      args.release
+    );
   }
 
   setFilter() {
     const callback = this.getCallback('loadFilter');
     const args = this.getFilterArgs();
-    callback(args.lowpass, args.highpass, args.reverb, args.delay);
+    callback(
+      +args.lowpass > 0 ? 10000 - (parseInt(args.lowpass) * 100) : 0,
+      +args.highpass > 0 ? parseInt(args.highpass) * 100 : 0,
+      args.reverb,
+      args.delay
+    );
   }
 
   setCheckbox(checkbox) {
@@ -161,11 +171,11 @@ class Controls {
 
     argsOne.forEach((arg) => {
       this[arg].onchange = () => this.setSample();
-    })
-    
+    });
+
     argsTwo.forEach((arg) => {
       this[arg].onchange = () => this.setFilter();
-    })
+    });
 
     this.modes[0].onchange = () => this.setPlaybackMode("note");
     this.modes[1].onchange = () => this.setPlaybackMode("chord");

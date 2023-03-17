@@ -15,16 +15,16 @@ class Circle {
     const noteWrapper = document.createElement("div");
     noteWrapper.classList.add("note-wrapper");
     noteWrapper.style.transform = `rotate(${degree}deg)`;
+    noteWrapper.setAttribute("data-note-parent-name", note);
     const content = document.createElement("div");
     content.setAttribute("class",
-      this.shownotes ? "note-content show-note" : "note-content show-key"
+      this.shownotes
+        ? "note-content show-note"
+        : "note-content show-key"
     );
-
     content.setAttribute("data-note-child-name", note);
     content.setAttribute("data-key-child-name", key);
     content.style.transform = `rotate(${360 - degree}deg)`;
-
-    noteWrapper.setAttribute("data-note-parent-name", note);
     noteWrapper.append(content);
     return noteWrapper;
   }
@@ -103,6 +103,5 @@ class Circle {
     };
   }
 }
-
 const circle = new Circle();
 export default circle;

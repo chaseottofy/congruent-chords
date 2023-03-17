@@ -22,8 +22,8 @@ Play either chords or single notes with a single keypress/mouseclick. Includes f
 - [x] 1-8 Octaves
 - [x] Volume control
 - [x] Attack/Release
-- [ ] Click note to play
-- [ ] Reverb
-- [ ] Delay
-- [ ] Lowpass/highpass
+- [x] Reverb
+- [x] Delay
+- [x] Lowpass/highpass
+- [x] Click note to play
 - [ ] Arp Mode

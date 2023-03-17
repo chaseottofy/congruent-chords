@@ -1,3 +1,4 @@
+const $ = document.querySelector.bind(document);
 import "./styles/root.css";
 import "./styles/app.css";
 import "./styles/about.css";
@@ -8,7 +9,8 @@ import controls from "./components/controls";
 import circle from "./components/circle";
 import Sampler from "./audio/sampler";
 import handleNotes from "./audio/handleNotes";
-const overlay = document.querySelector(".overlay");
+const overlay = $(".overlay");
+const notesContainer = $(".circle__outer");
 
 const sampler = new Sampler(
   controls.getSampleArgs(),
@@ -24,7 +26,6 @@ const renderdom = () => {
 };
 
 const initListeners = () => {
-
   // provide callback to controls for communication with circle
   controls.setCallback("setDom", renderdom);
 
@@ -48,7 +49,9 @@ const initListeners = () => {
   document.addEventListener("keydown", (e) => {
     const mode = controls.getPlaybackMode();
     const chord = controls.getChord();
+    // use overlay to prevent user from changing controls while playing
     overlay.classList.remove("hide");
+
     const callback = (arg) => {
       if (mode === "chord") {
         sampler.chordon(arg);
@@ -75,6 +78,37 @@ const initListeners = () => {
     };
     handleNotes.handleKeyup(e.key, mode, callback);
   });
+
+  // listen for mouse events on notes
+  notesContainer.onmousedown = e => {
+    if (e.target.closest(".note-content")) {
+      const key = e.target.getAttribute("data-key-child-name");
+      const mode = controls.getPlaybackMode();
+      const chord = controls.getChord();
+      const callback = (arg) => {
+        if (mode === "chord") {
+          sampler.chordon(arg);
+          circle.setActiveChordStyle(arg);
+        } else {
+          sampler.noteon(arg);
+          circle.setActiveNoteStyle(arg);
+        }
+      };
+      handleNotes.handleKeydown(key, mode, chord, callback);
+      document.onmouseup = e => {
+        const callback = (arg) => {
+          if (mode === "chord") {
+            sampler.chordoff();
+            circle.removeActiveChordStyle();
+          } else {
+            sampler.noteoff(arg);
+            circle.removeActiveNoteStyle(arg);
+          }
+        };
+        handleNotes.handleKeyup(key, mode, callback);
+      };
+    }
+  };
 };
 
 renderdom();
