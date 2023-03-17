@@ -8,28 +8,43 @@ import controls from "./components/controls";
 import circle from "./components/circle";
 import Sampler from "./audio/sampler";
 import handleNotes from "./audio/handleNotes";
+const overlay = document.querySelector(".overlay");
 
-const resetdom = () => {
+const sampler = new Sampler(
+  controls.getSampleArgs(),
+  controls.getFilterArgs(),
+);
+
+const renderdom = () => {
   handleNotes.setBase(
-    controls.getOctaves(),
-    notes.chromatic,
-    keyboard.all
+    controls.getOctaves(), notes.chromatic, keyboard.all
   );
   circle.appendNotes(handleNotes.getNotesArray());
   circle.clearActiveNotes();
-}
-
-resetdom();
-const sampler = new Sampler(controls.getDefaults());
+};
 
 const initListeners = () => {
-  controls.setResetDom(resetdom);
+  controls.setCallback("setDom", renderdom);
+
+  controls.setCallback("loadSample",
+    (sample, volume, attack, release) => {
+      sampler.setSampler(sample, volume, attack, release);
+    }
+  );
+
+  controls.setCallback("loadFilter",
+    (lowpass, highpass, reverb, delay) => {
+      sampler.setFilter(lowpass, highpass, reverb, delay);
+    }
+  );
+
   controls.handleClick();
   controls.handleChange();
 
   document.addEventListener("keydown", (e) => {
     const mode = controls.getPlaybackMode();
     const chord = controls.getChord();
+    overlay.classList.remove("hide");
     const callback = (arg) => {
       if (mode === "chord") {
         sampler.chordon(arg);
@@ -44,6 +59,7 @@ const initListeners = () => {
 
   document.addEventListener("keyup", (e) => {
     const mode = controls.getPlaybackMode();
+    overlay.classList.add("hide");
     const callback = (arg) => {
       if (mode === "chord") {
         sampler.chordoff();
@@ -51,12 +67,11 @@ const initListeners = () => {
       } else {
         sampler.noteoff(arg);
         circle.removeActiveNoteStyle(arg);
-        // console.log(e.key);
-        // console.log(arg);
       }
     };
     handleNotes.handleKeyup(e.key, mode, callback);
   });
 };
 
+renderdom();
 initListeners();

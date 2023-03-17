@@ -20,99 +20,66 @@ class Sampler {
     'distortedorgan1': distortedorgan1,
   };
 
-  constructor (defaults) {
+  constructor (defaults, filters) {
     this.currentChord = null;
-    this.limiter = new Tone.Limiter(-20).toDestination();
-    this.reverb = new Tone.Reverb({
-      decay: 4,
-      wet: 0.5,
-    }).toDestination();
-    this.envelope = new Tone.AmplitudeEnvelope({
-      attack: +defaults.attack,
-      decay: +defaults.decay,
-      sustain: +defaults.sustain,
-      release: +defaults.release,
-    }).toDestination();
 
-    this.volume = new Tone.Volume({ volume: -(+defaults.volume) }).toDestination();
+    this.delayStatus = filters.delay;
+    this.reverbStatus = filters.reverb;
+    this.reverb = new Tone.Reverb().toDestination();
 
-    this.sampler = new Tone.Sampler({
-      urls: { C3: this.#samples[defaults.sample] || piano1 },
+    this.sampler = this.setSampler(
+      defaults.sample,
+      defaults.volume,
+      defaults.attack,
+      defaults.release,
+      true,
+    );
+  }
+
+  setSampler(sample, volume, attack, release, isInit = false) {
+    const newSampler = new Tone.Sampler({
+      urls: { C3: this.#samples[sample] || piano1 },
+      attack: +attack,
+      release: +release,
+      volume: -(parseInt(60 - volume)),
       onload: () => { console.log('Samples loaded'); },
     }).toDestination();
 
+    if (isInit) {
+      return newSampler;
+    } else {
+      this.sampler = newSampler;
+    }
   }
 
-  // Load a new sample
-  loadSample(note, url) {
-    this.sampler.add(note, url);
-  }
-
-  // Set the chord
-  setChord(chordName) {
-    this.chord.value = [chordName];
-  }
-
-  // Set the ADSR envelope
-  setEnvelope(env) {
-    this.envelope.attack = +env.attack;
-    this.envelope.decay = +env.decay;
-    this.envelope.sustain = +env.sustain;
-    this.envelope.release = +env.release;
-  }
-
-  // Set the lowpass filter
-  setLowpass(cutoff, resonance) {
-    this.filter.type = 'lowpass';
-    this.filter.frequency.value = cutoff;
-    this.filter.Q.value = resonance;
-  }
-
-  // Set the highpass filter
-  setHighpass(cutoff, resonance) {
-    this.filter.type = 'highpass';
-    this.filter.frequency.value = cutoff;
-    this.filter.Q.value = resonance;
-  }
-
-  // Set the reverb
-  setReverb(decay, wet) {
-    this.reverb.decay = decay;
-    this.reverb.wet.value = wet;
-  }
-
-  setDelay(delayTime, wet) {
-    this.delay.delayTime.value = delayTime;
-    this.delay.wet.value = wet;
-  }
-
-  // Set the limiter threshold
-  setLimiter(threshold) {
-    this.limiter.threshold = threshold;
+  setFilter(lowpass, highpass, reverb, delay, isInit = false) {
+    this.reverbStatus = reverb;
+    this.delayStatus = delay;
+    console.log('ran');
   }
 
   noteon(note) {
-    this.sampler.triggerAttack(note).chain(
-      this.reverb, this.envelope, this.limiter, this.volume, Tone.Destination
+    this.sampler.triggerAttack(note).connect(
+      this.reverbStatus ? this.reverb : Tone.Destination
     );
   }
 
   noteoff(note) {
-    this.sampler.triggerRelease(note).chain(
-      this.reverb, this.envelope, this.limiter, this.volume, Tone.Destination
+    this.sampler.triggerRelease(note).connect(
+      this.reverbStatus ? this.reverb : Tone.Destination
     );
   }
 
   chordon(chord) {
     this.currentChord = chord;
-    this.sampler.triggerAttack(chord).chain(
-      this.reverb, this.envelope, this.limiter
+    this.sampler.triggerAttack(chord).connect(
+      this.reverbStatus ? this.reverb : Tone.Destination
     );
   }
 
   chordoff() {
-    this.sampler.triggerRelease(this.currentChord).chain(
-      this.reverb, this.envelope, this.limiter
+    this.sampler.triggerRelease(this.currentChord).connect(
+      this.reverbStatus ? this.reverb : Tone.Destination
     );
     this.currentChord = null; // chord set during chordon
   }

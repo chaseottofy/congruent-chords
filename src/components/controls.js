@@ -11,30 +11,41 @@ class Controls {
     this.octavelow = $(".lower-octave__val");
     this.octavehigh = $(".upper-octave__val");
     this.volume = $(".volume-slider");
+    this.attack = $(".attack-slider");
+    this.release = $(".release-slider");
     this.lowpass = $(".lowpass-slider");
     this.highpass = $(".highpass-slider");
-    this.attack = $(".attack-slider");
-    this.sustain = $(".sustain-slider");
-    this.decay = $(".decay-slider");
-    this.release = $(".release-slider");
     this.reverb = $(".reverb-status");
     this.delay = $(".delay-status");
-    this.handleResetDom = null;
+    this.callbacks = {
+      loadSample: null,
+      loadFilter: null,
+      setDom: null,
+    };
+  }
+  // callbacks provided onLoad @index
+  setCallback(name, callback) { this.callbacks[name] = callback; }
+  getCallback(name) { return this.callbacks[name] || null; }
+
+  getSample() { 
+    return this.sample.value; 
   }
 
-  setResetDom(callback) {
-    this.handleResetDom = callback;
+  getChord() { 
+    return this.chord.value; 
   }
 
-  getResetDom() {
-    return this.handleResetDom;
+  getArp() { 
+    return this.arp.value; 
   }
 
-  getSample() { return this.sample.value; }
-  getChord() { return this.chord.value; }
-  getArp() { return this.arp.value; }
-  getSliderValue(slider) { return this[slider].value; }
-  getCheckboxValue(checkbox) { return this[checkbox].checked; }
+  getSliderValue(slider) { 
+    return this[slider].value; 
+  }
+
+  getCheckboxValue(checkbox) { 
+    return this[checkbox].checked; 
+  }
 
   getPlaybackMode() {
     return this.modes[0].checked ? "note" : "chord";
@@ -44,41 +55,36 @@ class Controls {
     return [+this.octavelow.value, +this.octavehigh.value];
   }
 
-  getASDR() {
+  getSampleArgs() {
     return {
-      attack: this.getSliderValue('attack'),
-      sustain: this.getSliderValue('sustain'),
-      decay: this.getSliderValue('decay'),
-      release: this.getSliderValue('release'),
-    };
+      sample: this.sample.value,
+      volume: this.volume.value,
+      attack: this.attack.value,
+      release: this.release.value,
+    }
   }
 
-  getDefaults() {
+  getFilterArgs() {
     return {
-      sample: this.getSample(),
-      chord: this.getChord(),
-      arp: this.getArp(),
-      octaves: this.getOctaves(),
-      volume: this.getSliderValue('volume'),
-      lowpass: this.getSliderValue('lowpass'),
-      highpass: this.getSliderValue('highpass'),
-      attack: this.getSliderValue('attack'),
-      sustain: this.getSliderValue('sustain'),
-      decay: this.getSliderValue('decay'),
-      release: this.getSliderValue('release'),
-      reverb: this.getCheckboxValue('reverb'),
-      delay: this.getCheckboxValue('delay'),
-      mode: this.getPlaybackMode(),
-    };
+      lowpass: this.lowpass.value,
+      highpass: this.highpass.value,
+      reverb: this.reverb.checked,
+      delay: this.delay.checked,
+    }
   }
 
-  setOctaves(lower, upper) {
-    this.octavelow.value = lower;
-    this.octavehigh.value = upper;
+  setSample() {
+    const callback = this.getCallback("loadSample");
+    const args = this.getSampleArgs();
+    callback(args.sample, args.volume, args.attack, args.release);
   }
 
-  setSlider(slider, value) { this[slider].value = value; }
-  setSelect(select, value) { this[select].value = value; }
+  setFilter() {
+    const callback = this.getCallback('loadFilter');
+    const args = this.getFilterArgs();
+    callback(args.lowpass, args.highpass, args.reverb, args.delay);
+  }
+
   setCheckbox(checkbox) {
     this[checkbox].checked = !this[checkbox].checked;
   }
@@ -103,8 +109,8 @@ class Controls {
     if (curr === 1 && arg === "subtract"
       || curr === 8 && arg === "add") return;
 
-    // reset will re-render the notes associated with sampler and circle
-    const reset = this.getResetDom();
+    // reset re-renders notes associated with sampler && circle
+    const reset = this.getCallback("setDom");
     curr += arg === "add" ? 1 : -1;
 
     if (target === "lower") {
@@ -122,6 +128,7 @@ class Controls {
         el.getAttribute("data-target"), "add"
       );
     });
+
     $$(".octave__subtract").forEach(el => {
       el.onclick = () => this.setOctaves(
         el.getAttribute("data-target"), "subtract"
@@ -148,32 +155,17 @@ class Controls {
     };
   }
 
-  /*
-    I use onchange instead of addEventListener("change") for the following reasons:
-    - I do not want multiple event listeners for the same element
-    - Removing becomes as simple as { onchange = null }
-    - Less overhead
-    - Not worried about debugging, each element does one thing
-  */
   handleChange() {
-    const select = ['sample', 'chord', 'arp'];
-    const sliders = ['attack', 'sustain', 'decay', 'release', 'volume', 'lowpass', 'highpass'];
-    const checkboxes = ['reverb', 'delay'];
+    const argsOne = ['sample', 'volume', 'attack', 'release'];
+    const argsTwo = ['lowpass', 'highpass', 'reverb', 'delay'];
 
-    select.forEach((select) => {
-      const handler = this.setSelect(select, this[select].value);
-      this[select].onchange = handler;
-    });
-
-    sliders.forEach((slider) => {
-      const handler = this.setSlider(slider, this[slider].value);
-      this[slider].onchange = handler;
-    });
-
-    checkboxes.forEach((checkbox) => {
-      const handler = this.setCheckbox(checkbox);
-      this[checkbox].onchange = handler;
-    });
+    argsOne.forEach((arg) => {
+      this[arg].onchange = () => this.setSample();
+    })
+    
+    argsTwo.forEach((arg) => {
+      this[arg].onchange = () => this.setFilter();
+    })
 
     this.modes[0].onchange = () => this.setPlaybackMode("note");
     this.modes[1].onchange = () => this.setPlaybackMode("chord");

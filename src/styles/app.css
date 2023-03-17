@@ -29,22 +29,39 @@
   position: absolute;
   top: 0;
   right: 0;
-  height: 4.5rem;
+  height: 4rem;
   display:flex;
   justify-content:flex-end;
   align-items:center;
   width: 8rem;
-  padding: .75rem 1rem;
+  padding: 1rem 1rem;
+  column-gap: 1rem;
+  z-index: 1000;
 }
 
-.aside-logo > svg {
-  width:2.25rem;
-  height:2.25rem;
+.aside-logo a {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  cursor: pointer;
 }
 
+.aside-logo > svg,
+.aside-logo a svg {
+  width:2rem;
+  height:2rem;
+}
 
-/* @media screen and (max-width: 600px) {
-  .main {
-    transform: scale(0.8);
-  }
-} */
+.overlay {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: transparent;
+  z-index: 2000;
+  top: 0;
+  left: 0;
+}
+
+.hide {
+  display:none;
+}
