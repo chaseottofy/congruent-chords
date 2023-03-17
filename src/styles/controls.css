@@ -27,16 +27,16 @@
 }
 
 .toggle-controls {
-  height: 3rem;
-  width: 3rem;
+  height: 4rem;
+  width: 4rem;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .toggle-controls svg {
-  height: 100%;
-  width: 100%;
+  height: 2rem;
+  width: 2rem;
   fill: var(--white1);
 }
 

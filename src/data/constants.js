@@ -17,6 +17,7 @@ const keyboard = {
   lower: "zsxdcvgbhnjm",
   upper: "q2w3er5t6y7u",
   all: "q2w3er5t6y7uzsxdcvgbhnjm",
+  rev: "zsxdcvgbhnjmq2w3er5t6y7u"
 }
 
 export { notes, arpTypes, chordTypes, keyboard };

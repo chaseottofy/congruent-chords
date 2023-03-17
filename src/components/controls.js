@@ -107,7 +107,7 @@ class Controls {
     let curr = target === "lower" ? +currLower : +currUpper;
 
     if (curr === 1 && arg === "subtract"
-      || curr === 8 && arg === "add") return;
+      || curr === 7 && arg === "add") return;
 
     // reset re-renders notes associated with sampler && circle
     const reset = this.getCallback("setDom");

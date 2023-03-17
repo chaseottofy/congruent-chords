@@ -5,7 +5,6 @@ import pad1 from './samples/pad1.mp3';
 import pad2 from './samples/pad2.mp3';
 import pad3 from './samples/pad3.mp3';
 import piano1 from './samples/piano1.mp3';
-import piano2 from './samples/piano2.mp3';
 import distortedorgan1 from './samples/distortedorgan1.mp3';
 
 class Sampler {
@@ -16,7 +15,6 @@ class Sampler {
     'pad2': pad2,
     'pad3': pad3,
     'piano1': piano1,
-    'piano2': piano2,
     'distortedorgan1': distortedorgan1,
   };
 
@@ -45,9 +43,11 @@ class Sampler {
       onload: () => { console.log('Samples loaded'); },
     }).toDestination();
 
+
     if (isInit) {
       return newSampler;
     } else {
+      this.sampler.dispose();
       this.sampler = newSampler;
     }
   }

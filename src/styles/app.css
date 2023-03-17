@@ -65,3 +65,12 @@
 .hide {
   display:none;
 }
+
+.toggle-keys {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 2.5rem;
+  width: 4rem;
+  z-index:1000;
+}

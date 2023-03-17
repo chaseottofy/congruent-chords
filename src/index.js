@@ -3,7 +3,7 @@ import "./styles/app.css";
 import "./styles/about.css";
 import "./styles/circle.css";
 import "./styles/controls.css";
-import { notes, arpTypes, chordTypes, keyboard } from "./data/constants";
+import { notes, keyboard } from "./data/constants";
 import controls from "./components/controls";
 import circle from "./components/circle";
 import Sampler from "./audio/sampler";
@@ -24,23 +24,27 @@ const renderdom = () => {
 };
 
 const initListeners = () => {
+
+  // provide callback to controls for communication with circle
   controls.setCallback("setDom", renderdom);
 
+  // provide callbacks to controls for communication with sampler
   controls.setCallback("loadSample",
     (sample, volume, attack, release) => {
       sampler.setSampler(sample, volume, attack, release);
     }
   );
-
   controls.setCallback("loadFilter",
     (lowpass, highpass, reverb, delay) => {
       sampler.setFilter(lowpass, highpass, reverb, delay);
     }
   );
 
-  controls.handleClick();
-  controls.handleChange();
+  controls.handleClick();   // init controls onchange listeners
+  controls.handleChange();  // init controls onchange listeners
+  circle.togglekeys();      // toggle between keys/note names (circle)
 
+  // listen for keydown and keyup events
   document.addEventListener("keydown", (e) => {
     const mode = controls.getPlaybackMode();
     const chord = controls.getChord();

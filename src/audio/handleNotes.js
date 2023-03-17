@@ -70,6 +70,7 @@ class HandleNotes {
     if (mode === "chord" && activeNotesLength > 0) return;
     if (mode === "chord") {
       const chord = createChord(mappedNote, chordType);
+      console.log(chord)
       on(chord);
       this.addChord(chord);
       return;
