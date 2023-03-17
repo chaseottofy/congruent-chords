@@ -1,6 +1,6 @@
 # congruent-chords
 
-### work in progress
+## work in progress
 
 ![screen](src/assets/screenshots/wheelv1.png)
 
