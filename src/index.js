@@ -9,11 +9,21 @@ import circle from "./components/circle";
 import Sampler from "./audio/sampler";
 import handleNotes from "./audio/handleNotes";
 
-handleNotes.setDefaults(controls.getOctaves(), notes.chromatic, keyboard.all);
-circle.appendNotes(handleNotes.getNotesArray());
+const resetdom = () => {
+  handleNotes.setBase(
+    controls.getOctaves(),
+    notes.chromatic,
+    keyboard.all
+  );
+  circle.appendNotes(handleNotes.getNotesArray());
+  circle.clearActiveNotes();
+}
+
+resetdom();
 const sampler = new Sampler(controls.getDefaults());
 
 const initListeners = () => {
+  controls.setResetDom(resetdom);
   controls.handleClick();
   controls.handleChange();
 
@@ -41,11 +51,12 @@ const initListeners = () => {
       } else {
         sampler.noteoff(arg);
         circle.removeActiveNoteStyle(arg);
+        // console.log(e.key);
+        // console.log(arg);
       }
     };
     handleNotes.handleKeyup(e.key, mode, callback);
   });
 };
-
 
 initListeners();

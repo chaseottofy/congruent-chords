@@ -35,7 +35,7 @@
 
   --black0: #020203;
   --black1: #111314;
-  --black2: #2e3438;
+  --black2: #24292c;
   --white1: #d7f3f5;
   --grey1: #505d5f;
   --grey2: #959595;
@@ -209,6 +209,9 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0;
 }
 
+input[type=range]::-webkit-slider-thumb {
+  transform: scale(.9);
+}
 /* moz specific : resets
 ============================*/
 

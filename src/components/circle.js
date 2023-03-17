@@ -1,10 +1,10 @@
 const $$ = document.querySelectorAll.bind(document);
 const $ = document.querySelector.bind(document);
+
 class Circle {
   constructor () {
     this.notesContainer = $(".circle__outer");
     this.activeNotesContainer = $(".circle__inner");
-    this.notes = [];
     this.activeNotes = [];
   }
 
@@ -30,12 +30,13 @@ class Circle {
     });
   }
 
-  appendActiveNotes(notes) {
-    this.activeNotesContainer.innerText = notes.join("\n");
+  appendActiveNotes() {
+    this.activeNotesContainer.innerText = this.activeNotes.join("\n");
   }
 
   clearActiveNotes() {
     this.activeNotesContainer.innerText = "";
+    this.activeNotes = [];
   }
 
   #getActiveNote(note) {
@@ -43,21 +44,28 @@ class Circle {
   }
 
   setActiveNoteStyle(note) {
+    this.activeNotes.push(note);
+    this.appendActiveNotes()
     this.#getActiveNote(note).classList.add("active");
   }
-
-  removeActiveNoteStyle(note) {
-    this.#getActiveNote(note).classList.remove("active");
-  }
-
+  
   setActiveChordStyle(notes) {
     notes.forEach(note => {
       this.setActiveNoteStyle(note)
     });
   }
+  
+  removeActiveNoteStyle(note) {
+    this.#getActiveNote(note).classList.remove("active");
+    this.activeNotes = this.activeNotes.filter(n => n !== note);
+    this.appendActiveNotes();
+  }
 
   removeActiveChordStyle() {
-    $$(`[data-note-parent-name]`).forEach(note => note.classList.remove("active"));
+    $$(`[data-note-parent-name]`).forEach(note => {
+      note.classList.remove("active")
+    });
+    this.clearActiveNotes();
   }
 }
 

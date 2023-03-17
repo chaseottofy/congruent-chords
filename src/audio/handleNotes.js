@@ -35,7 +35,7 @@ class HandleNotes {
     }
   }
 
-  setDefaults(octaves, notesBase, keyboardBase) {
+  setBase(octaves, notesBase, keyboardBase) {
     this.setNotesArray(octaves, notesBase);
     this.setKeyboardMap(keyboardBase);
   }
@@ -48,12 +48,14 @@ class HandleNotes {
     this.activeNotes.push(note);
     this.activeKeys.push(key);
   }
+
   addChord(notes) { this.activeNotes = [notes]; }
 
   removeNote(note, key) {
     this.activeNotes = this.activeNotes.filter(n => n !== note);
     this.activeKeys = this.activeKeys.filter(k => k !== key);
   }
+
   removeAll() {
     this.activeNotes = [];
     this.activeKeys = [];

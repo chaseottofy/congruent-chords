@@ -103,24 +103,18 @@ class Sampler {
     );
   }
 
-  setChord(chord) {
-    this.currentChord = chord;
-  }
-
   chordon(chord) {
-    
-    console.log(chord);
+    this.currentChord = chord;
     this.sampler.triggerAttack(chord).chain(
       this.reverb, this.envelope, this.limiter
     );
-    this.currentChord = chord;
   }
 
   chordoff() {
     this.sampler.triggerRelease(this.currentChord).chain(
       this.reverb, this.envelope, this.limiter
     );
-    this.currentChord = null;
+    this.currentChord = null; // chord set during chordon
   }
 }
 

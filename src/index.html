@@ -79,41 +79,27 @@
     <!-- change octaves -->
     <div class="controls__section set-octaves">
       <span class="controls__section--title">octaves</span>
-
+      <!-- lower octave -->
       <div class="controls__section--row set-octave">
-        <button class="lower-octave__subtract">
+        <button class="octave__subtract" data-target="lower">
           <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 0 24 24" width="18px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M7 10l5 5 5-5z"/></svg>
         </button>
 
-        <input 
-          type="number" 
-          value="3" 
-          min="0" 
-          max="8" 
-          readonly
-          class="lower-octave__val"
-        >
+        <input type="number" value="3" min="0" max="8" readonly class="lower-octave__val">
 
-        <button class="lower-octave__add">
+        <button class="octave__add" data-target="lower">
           <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 0 24 24" width="18px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M7 14l5-5 5 5z"/></svg>
         </button>
       </div>
-
-      <div class="set-octave controls__section--row">
-        <button class="upper-octave__subtract">
+      <!-- upper octave -->
+      <div class="controls__section--row set-octave">
+        <button class="octave__subtract" data-target="upper">
           <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 0 24 24" width="18px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M7 10l5 5 5-5z"/></svg>
         </button>
 
-        <input 
-          type="number" 
-          value="4" 
-          min="0" 
-          max="8" 
-          readonly
-          class="upper-octave__val"
-        >
+        <input type="number" value="4" min="0" max="8" readonly class="upper-octave__val">
 
-        <button class="upper-octave__add">
+        <button class="octave__add" data-target="upper">
           <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 0 24 24" width="18px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M7 14l5-5 5 5z"/></svg>
         </button>
       </div>
@@ -182,9 +168,9 @@
         <input type="range" value="0.9" step="0.1" min="0" max="1" class="release-slider">
       </div>
     </div>
-
   </aside>
 
+  
   <main class="main">
     <div class="circle__outer"></div>
     <div class="circle__inner"></div>
