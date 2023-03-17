@@ -39,7 +39,6 @@
   top: 0;
   left: 0;
   height: 2px;
-  /* background: var(--white1); */
 }
 
 .note-content {
@@ -78,3 +77,9 @@
 .note-wrapper.active > .note-content::after {
   background: var(--white1);
 }
+
+/* @media screen and (max-width: 600px) {
+  .main {
+    width: calc(100% - 14rem);
+  }
+} */

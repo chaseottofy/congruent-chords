@@ -203,11 +203,35 @@ button {
 
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
   opacity: 0;
+  margin: 0;
 }
 
 /* moz specific : resets
 ============================*/
+
+input[type="range"]::-moz-range-track {
+  background: var(--black2);
+}
+
+input[type="range"]::-moz-range-progress {
+  background: var(--blue1);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: .8em;
+  height: .8em;
+  border-radius: .4em;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+  margin: 0;
+}
+
 ::-moz-focus-inner {
   border-style: none;
   padding: 0
@@ -272,31 +296,21 @@ input[type=number]::-webkit-outer-spin-button {
   }
 }
 
-@media screen and (max-width: 600px) {
-  html {
-    font-size: 11px
-  }
-}
-
-@media screen and (max-height: 600px) {
-  html {
-    font-size: 13px
-  }
-}
-
-@media screen and (max-height: 600px) {
-  html {
-    font-size: 11px
-  }
-}
-
-@media screen and (max-height: 400px) {
+@media screen and (max-width: 650px) {
   html {
     font-size: 10px
   }
 }
 
-@media screen and (max-height: 300px) {
+@media (max-height: 650px),
+(max-height: 650px) {
+  html {
+    font-size: 10px
+  }
+}
+
+@media (max-width: 550px),
+(max-height: 550px) {
   html {
     font-size: 9px
   }

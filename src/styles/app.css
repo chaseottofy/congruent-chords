@@ -21,8 +21,30 @@
   font-size: 1rem;
 }
 
-@media screen and (max-width: 600px) {
+.main-expand {
+  width: 100%;
+}
+
+.aside-logo {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 4.5rem;
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  width: 8rem;
+  padding: .75rem 1rem;
+}
+
+.aside-logo > svg {
+  width:2.25rem;
+  height:2.25rem;
+}
+
+
+/* @media screen and (max-width: 600px) {
   .main {
     transform: scale(0.8);
   }
-}
+} */

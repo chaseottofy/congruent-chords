@@ -1,8 +1,7 @@
-const notesContainer = document.querySelector(".circle__outer");
-const activeNotesContainer = document.querySelector(".circle__inner");
-
 class Circle {
   constructor () {
+    this.notesContainer = document.querySelector(".circle__outer");
+    this.activeNotesContainer = document.querySelector(".circle__inner");
     this.notes = [];
     this.activeNotes = [];
   }
@@ -22,19 +21,19 @@ class Circle {
   }
 
   appendNotes(notes) {
-    notesContainer.innerText = "";
+    this.notesContainer.innerText = "";
     const length = (360 / notes.length);
     notes.forEach((note, idx) => {
-      notesContainer.append(this.#createNote(note, idx * length));
+      this.notesContainer.append(this.#createNote(note, idx * length));
     });
   }
 
   appendActiveNotes(notes) {
-    activeNotesContainer.innerText = notes.join("\n");
+    this.activeNotesContainer.innerText = notes.join("\n");
   }
 
   clearActiveNotes() {
-    activeNotesContainer.innerText = "";
+    this.activeNotesContainer.innerText = "";
   }
 
   #getActiveNote(note) {
